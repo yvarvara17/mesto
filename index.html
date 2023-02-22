@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="pages/index.css">
+</head>
+<body class="root">
+  <header class="header">
+    <img src="./images/logo.svg" alt="Логотип" class="header__logo">
+  </header>
+  <main class="main">
+    <section class="profile">
+      <div class="profile__wrapper">
+        <img src="./images/cousteau.jpg" class="profile__avatar" alt="Жак-Ив Кусто">
+        <div class="profile__info">
+          <div class="profile__title-wrapper">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__subtitle">
+            Исследователь океана
+          </p>
+        </div>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+    <section>
+      <ul class="elements">
+        <li class="element">
+          <img src="images/arkhyz.jpg" class="element__image" alt="Архыз">
+          <div class="element__wrapper">
+            <h2 class="element__title">
+              Архыз
+            </h2>
+            <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+        <li class="element">
+          <img src="images/elbrus.jpg" class="element__image" alt="Эльбрус">
+          <div class="element__wrapper">
+          <h2 class="element__title">
+            Эльбрус
+          </h2>
+          <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+        <li class="element">
+          <img src="images/soph_vodopady.jpg" class="element__image" alt="Софийские водопады">
+          <div class="element__wrapper">
+          <h2 class="element__title">
+            Софийские водопады
+          </h2>
+          <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+        <li class="element">
+          <img src="images/zapovednik.jpg" class="element__image" alt="Тебердинский заповедник">
+          <div class="element__wrapper">
+          <h2 class="element__title">
+            Тебердинский заповедник
+          </h2>
+          <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+        <li class="element">
+          <img src="images/belolakaya.jpg" class="element__image" alt="Гора Белолакая">
+          <div class="element__wrapper">
+          <h2 class="element__title">
+            Гора Белолакая
+          </h2>
+          <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+        <li class="element">
+          <img src="images/pyatigorsk.jpg" class="element__image" alt="Пятигорск">
+          <div class="element__wrapper">
+          <h2 class="element__title">
+            Пятигорск
+          </h2>
+          <img src="images/like.svg" class="element__like" alt="Лайкнуть">
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__text">&copy; 2023 Варвара Юдина</p>
+  </footer>
+  <section class="popup">
+    <div class="popup__container">
+      <button class="popup__close"></button>
+      <h2 class="popup__header">Редактировать профиль</h2>
+      <form class="popup__form">
+        <input type="text" value="Жак-Ив Кусто" class="popup__form-name-input">
+        <input type="text" value="Исследователь океана" class="popup__form-job-input">
+        <input type="submit" value="Сохранить" class="popup__form-submit">
+      </form>
+    </div>
+  </section>
+  <script src="./pages/index.js"></script>
+</body>
+</html>

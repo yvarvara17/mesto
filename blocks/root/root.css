@@ -1,0 +1,15 @@
+.root {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 200px;
+}
+@media (max-width: 1280px) {
+  .root {
+   padding: 0 19px;
+  }
+}

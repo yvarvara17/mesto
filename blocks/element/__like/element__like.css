@@ -1,0 +1,10 @@
+.element__like{
+  padding: 30px 20px 30px 25px;
+}
+.element__like:hover{
+  opacity: .5;
+}
+.element__like:active{
+  opacity: 1;
+  background: url(../../../images/like_black.svg) no-repeat center;
+}

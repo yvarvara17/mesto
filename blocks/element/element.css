@@ -1,0 +1,18 @@
+.element{
+  background: #fff;
+  border-radius: 10px;
+  max-width: 282px;
+  width: calc((100vw - 38px - 34px)/3);
+  position: relative;
+}
+@media (max-width: 768px) {
+  .element {
+    max-width: 387px;
+    width: calc((100vw - 38px - 17px)/2);
+  }
+}
+@media (max-width: 425px) {
+  .element {
+    width: calc(100vw - 38px);
+  }
+}
