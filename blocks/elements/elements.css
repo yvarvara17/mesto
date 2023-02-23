@@ -20,5 +20,6 @@
   .elements {
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(1, 1fr);
+    width: calc(100vw - 38px);
   }
 }

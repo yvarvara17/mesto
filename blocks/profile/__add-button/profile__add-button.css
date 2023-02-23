@@ -12,11 +12,11 @@
 }
 @media (max-width: 768px) {
   .profile__add-button {
-    padding: 36px 0;
+    background-size: 16px 16px;
   }
 }
 @media (max-width: 425px) {
   .profile__add-button {
-    width: 100%;
+    width: calc(100vw - 38px);
   }
 }

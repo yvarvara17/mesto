@@ -6,8 +6,14 @@
   padding: 66px 0 60px;
   max-width: 880px;
 }
+@media (max-width: 1280px) {
+  .footer{
+    padding: 66px 19px 60px;
+    width: calc(100vw - 38px);
+  }
+}
 @media (max-width: 425px) {
   .footer{
-    padding: 48px 0 36px;
+    padding: 48px 19px 36px;
   }
 }

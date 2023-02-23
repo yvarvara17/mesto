@@ -1,22 +1,23 @@
 .popup__form-submit{
-  margin-top: 48px;
+  margin-top: 16px;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
-  padding: 14px 124px 18px 125px;
+  padding: 16px 124px 14px 125px;
   background-color: #000;
   border-radius: 2px;
   cursor: pointer;
+  border: none;
 }
 .popup__form-submit:hover{
   opacity: 0.8;
 }
 @media (max-width: 425px) {
   .popup__form-submit{
-    margin-top: 45px;
+    margin-top: 15px;
     padding: 14px 82px;
     font-size: 14px;
     line-height: 17px;
