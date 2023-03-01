@@ -2,4 +2,10 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  margin-right: 30px;
+}
+@media (max-width: 537px) {
+  .profile__avatar {
+    margin: 0;
+  }
 }
