@@ -1,0 +1,4 @@
+.element__like_checked{
+    opacity: 1;
+    background: url(../../../../images/like_black.svg) no-repeat center;
+  }

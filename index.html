@@ -28,6 +28,7 @@
       <ul class="elements">
         <li class="element">
           <img src="images/arkhyz.jpg" class="element__image" alt="Архыз">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
             <h2 class="element__title">
               Архыз
@@ -37,6 +38,7 @@
         </li>
         <li class="element">
           <img src="images/elbrus.jpg" class="element__image" alt="Эльбрус">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
           <h2 class="element__title">
             Эльбрус
@@ -46,6 +48,7 @@
         </li>
         <li class="element">
           <img src="images/soph_vodopady.jpg" class="element__image" alt="Софийские водопады">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
           <h2 class="element__title">
             Софийские водопады
@@ -55,6 +58,7 @@
         </li>
         <li class="element">
           <img src="images/zapovednik.jpg" class="element__image" alt="Тебердинский заповедник">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
           <h2 class="element__title">
             Тебердинский заповедник
@@ -64,6 +68,7 @@
         </li>
         <li class="element">
           <img src="images/belolakaya.jpg" class="element__image" alt="Гора Белолакая">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
           <h2 class="element__title">
             Гора Белолакая
@@ -73,6 +78,7 @@
         </li>
         <li class="element">
           <img src="images/pyatigorsk.jpg" class="element__image" alt="Пятигорск">
+          <img src="images/trash.svg" class="element__trash" alt="Удалить">
           <div class="element__wrapper">
           <h2 class="element__title">
             Пятигорск
@@ -86,7 +92,7 @@
   <footer class="footer">
     <p class="footer__text">&copy; 2023 Варвара Юдина</p>
   </footer>
-  <section class="popup">
+  <section class="popup" id="edit">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
@@ -97,6 +103,35 @@
       </form>
     </div>
   </section>
+  <section class="popup" id="card">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__header">Новое место</h2>
+      <form class="popup__form" method="post" action="" name="form">
+        <input type="text" value="Название" name="name" class="popup__form-input popup__form-input_type_name">
+        <input type="text" value="Ссылка на картинку" name="link" class="popup__form-input popup__form-input_type_job">
+        <button type="submit" class="popup__form-submit">Создать</button>
+      </form>
+    </div>
+  </section>
+  <section class="gallery">
+    <div class="gallery__container">
+      <button class="gallery__close" type="button"></button>
+      <img src="#" class="gallery__img">
+      <p class="gallery__title"></p>
+    </div>
+  </section>
+  <template id="item">
+    <li class="element">
+      <img src="" class="element__image" alt="">
+      <img src="images/trash.svg" class="element__trash" alt="Удалить">
+      <div class="element__wrapper">
+      <h2 class="element__title">
+      </h2>
+      <button type="button" class="element__like"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
