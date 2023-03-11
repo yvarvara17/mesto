@@ -29,7 +29,7 @@ const template = document.getElementById('item');
 
 const profileForm = document.forms['profile-form'];
 const profileNameInput = document.querySelector('.profile-name-input');
-const profileJobInput= document.querySelector('.profile-job-input');
+const profileJobInput = document.querySelector('.profile-job-input');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const profilePopup = document.querySelector('.profile-popup');
@@ -44,6 +44,8 @@ const cardButton = document.querySelector('.profile__add-button');
 const cardCloseButton = document.querySelector('.card-close');
 
 const galleryPopup = document.querySelector('.gallery-popup');
+const galleryPopupImg = galleryPopup.querySelector('.gallery-popup__img');
+const galleryPopupTitle = galleryPopup.querySelector('.gallery-popup__title');
 const galleryCloseButton = document.querySelector('.gallery-popup__close');
 
 const closeButtons = document.querySelectorAll('.popup__close');
@@ -70,13 +72,12 @@ function handleFormSubmitCard (evt) {
   evt.preventDefault();
   itemListWrapper.prepend(createCard(cardNameInput.value, cardLinkInput.value));
   closePopup(cardPopup);
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
+  cardForm.reset();
 }
-function insertData(name, link){
-  galleryPopup.querySelector('.gallery-popup__img').src = link;
-  galleryPopup.querySelector('.gallery-popup__img').title = name;
-  galleryPopup.querySelector('.gallery-popup__title').textContent = name;
+function insertImageData(name, link){
+  galleryPopupImg.src = link;
+  galleryPopupImg.alt = name;
+  galleryPopupTitle.textContent = name;
 }
 const createCard = (name, link) => {
   const cardElement = template.content.cloneNode(true);
@@ -91,7 +92,7 @@ const createCard = (name, link) => {
   cardElementTrash.addEventListener('click', removeCard);
   cardElementImg.addEventListener('click', () => { 
     openPopup(galleryPopup);
-    insertData(name, link);
+    insertImageData(name, link);
   });
   return cardElement;
 }
