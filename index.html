@@ -26,97 +26,37 @@
     </section>
     <section>
       <ul class="elements">
-        <li class="element">
-          <img src="images/arkhyz.jpg" class="element__image" alt="Архыз">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-            <h2 class="element__title">
-              Архыз
-            </h2>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="images/elbrus.jpg" class="element__image" alt="Эльбрус">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-          <h2 class="element__title">
-            Эльбрус
-          </h2>
-          <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="images/soph_vodopady.jpg" class="element__image" alt="Софийские водопады">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-          <h2 class="element__title">
-            Софийские водопады
-          </h2>
-          <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="images/zapovednik.jpg" class="element__image" alt="Тебердинский заповедник">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-          <h2 class="element__title">
-            Тебердинский заповедник
-          </h2>
-          <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="images/belolakaya.jpg" class="element__image" alt="Гора Белолакая">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-          <h2 class="element__title">
-            Гора Белолакая
-          </h2>
-          <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img src="images/pyatigorsk.jpg" class="element__image" alt="Пятигорск">
-          <img src="images/trash.svg" class="element__trash" alt="Удалить">
-          <div class="element__wrapper">
-          <h2 class="element__title">
-            Пятигорск
-          </h2>
-          <button type="button" class="element__like"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__text">&copy; 2023 Варвара Юдина</p>
   </footer>
-  <section class="popup" id="edit">
+  <section class="popup profile-popup">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close profile-close" type="button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
-      <form class="popup__form" method="post" action="" name="form">
-        <input type="text" value="Жак-Ив Кусто" name="name" class="popup__form-input popup__form-input_type_name">
-        <input type="text" value="Исследователь океана" name="job" class="popup__form-input popup__form-input_type_job">
-        <button type="submit" class="popup__form-submit">Сохранить</button>
+      <form class="popup__form profile-form" method="post" action="" name="profile-form">
+        <input type="text" value="Жак-Ив Кусто" name="profile-name" class="popup__form-input profile-name-input">
+        <input type="text" value="Исследователь океана" name="profile-job" class="popup__form-input profile-job-input">
+        <button type="submit" class="popup__form-submit profile-submit">Сохранить</button>
       </form>
     </div>
   </section>
-  <section class="popup" id="card">
+  <section class="popup card-popup">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close card-close" type="button"></button>
       <h2 class="popup__header">Новое место</h2>
-      <form class="popup__form" method="post" action="" name="form">
-        <input type="text" value="Название" name="name" class="popup__form-input popup__form-input_type_name">
-        <input type="text" value="Ссылка на картинку" name="link" class="popup__form-input popup__form-input_type_job">
-        <button type="submit" class="popup__form-submit">Создать</button>
+      <form class="popup__form card-form" method="post" action="" name="card-form">
+        <input type="text" value="Название" name="card-name" class="popup__form-input card-name-input">
+        <input type="text" value="Ссылка на картинку" name="card-link" class="popup__form-input card-link-input">
+        <button type="submit" class="popup__form-submit card-submit">Создать</button>
       </form>
     </div>
   </section>
-  <section class="gallery">
+  <section class="popup gallery-popup">
     <div class="gallery__container">
-      <button class="gallery__close" type="button"></button>
+      <button class="popup__close gallery-close" type="button"></button>
       <img src="#" class="gallery__img">
       <p class="gallery__title"></p>
     </div>
