@@ -1,10 +1,10 @@
-.gallery__container{
+.gallery-popup__container{
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     box-sizing: border-box;
     position: relative;
   }
   @media (max-width: 502px) {
-    .gallery__container{
+    .gallery-popup__container{
       width: calc(100vw - 38px);
       padding: 25px 22px;
     }

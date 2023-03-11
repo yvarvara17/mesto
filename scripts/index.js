@@ -44,7 +44,7 @@ const cardButton = document.querySelector('.profile__add-button');
 const cardCloseButton = document.querySelector('.card-close');
 
 const galleryPopup = document.querySelector('.gallery-popup');
-const galleryCloseButton = document.querySelector('.gallery-close');
+const galleryCloseButton = document.querySelector('.gallery-popup__close');
 
 const closeButtons = document.querySelectorAll('.popup__close');
 
@@ -74,9 +74,9 @@ function handleFormSubmitCard (evt) {
   cardLinkInput.value = '';
 }
 function insertData(name, link){
-  galleryPopup.querySelector('.gallery__img').src = link;
-  galleryPopup.querySelector('.gallery__img').title = name;
-  galleryPopup.querySelector('.gallery__title').textContent = name;
+  galleryPopup.querySelector('.gallery-popup__img').src = link;
+  galleryPopup.querySelector('.gallery-popup__img').title = name;
+  galleryPopup.querySelector('.gallery-popup__title').textContent = name;
 }
 const createCard = (name, link) => {
   const cardElement = template.content.cloneNode(true);
