@@ -1,6 +1,6 @@
 .element__trash{
     position: absolute;
-    background: url("../../../images/trash.svg") no-repeat; 
+    background: url("../../../images/trash.svg") no-repeat;
     width: 18px;
     height: 19px;
     top: 20px;
