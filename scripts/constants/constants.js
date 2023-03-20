@@ -3,5 +3,6 @@ const validationConfig = {
     errorClassTemplate: '.popup__form-input-error_type_',
     activeErrorClass: 'popup__form-input-error',
     submitButtonSelector: '.popup__form-submit',
-    validSubmitButtonClass: 'popup__form-submit_valid'
+    validSubmitButtonClass: 'popup__form-submit_valid',
+    errorInputClass: 'popup__form-input_invalid'
 }

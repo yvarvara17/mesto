@@ -1,29 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
 const itemListWrapper = document.querySelector('.elements');
 const template = document.getElementById('item');
 
@@ -58,18 +32,19 @@ function setLike(e){
 function removeCard(e){
   e.target.closest('.element').remove();
 }
-function closePopupOnKeyPress(elem, evt){
-  if(evt.key === 'Escape'){
-    closePopup(elem);
+function closePopupOnKeyPress(evt){
+  const openedPopup = document.querySelector('.popup_opened');
+  if(openedPopup !== null && evt.key === 'Escape'){
+    closePopup(openedPopup);
   }
 }
 function openPopup(elem){
   elem.classList.add('popup_opened');
-  document.addEventListener('keydown', (evt) => closePopupOnKeyPress(elem, evt));
+  document.addEventListener('keydown', closePopupOnKeyPress);
 }
 function closePopup(elem){
   elem.classList.remove('popup_opened');
-  document.removeEventListener('keydown', (evt) => closePopupOnKeyPress(elem, evt));
+  document.removeEventListener('keydown', closePopupOnKeyPress);
 }
 function handleFormSubmitProfile (evt) {
   evt.preventDefault();

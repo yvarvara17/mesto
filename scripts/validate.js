@@ -1,15 +1,15 @@
 const forms = document.forms;
 
-const showInputError = (errorTextElement, validationMessage, activeErrorClass, input) => {
+const showInputError = (errorTextElement, validationMessage, activeErrorClass, input, errorInputClass) => {
     errorTextElement.textContent = validationMessage;
     errorTextElement.classList.add(activeErrorClass); 
-    input.classList.add('popup__form-input_invalid');
+    input.classList.add(errorInputClass);
 }
 
-const hideInputError = (errorTextElement, activeErrorClass, input) => {
+const hideInputError = (errorTextElement, activeErrorClass, input, errorInputClass) => {
     errorTextElement.textContent = '';
     errorTextElement.classList.remove(activeErrorClass);
-    input.classList.remove('popup__form-input_invalid');
+    input.classList.remove(errorInputClass);
 }
 
 const disableButton = (submitButton, validSubmitButtonClass) => {
@@ -22,13 +22,13 @@ const enableButton = (submitButton, validSubmitButtonClass) => {
     submitButton.disabled = false;
 }
 
-const checkInputValidity = (input, errorClassTemplate, activeErrorClass) => {
+const checkInputValidity = (input, errorClassTemplate, activeErrorClass, errorInputClass) => {
     const errorTextElement = document.querySelector(`${errorClassTemplate}${input.name}`);
     if(!input.validity.valid){
-        showInputError(errorTextElement, input.validationMessage, activeErrorClass, input);
+        showInputError(errorTextElement, input.validationMessage, activeErrorClass, input, errorInputClass);
     }
     else{
-        hideInputError(errorTextElement, activeErrorClass, input);
+        hideInputError(errorTextElement, activeErrorClass, input, errorInputClass);
     }
 }
 
@@ -45,13 +45,13 @@ const toggleButtonState = (submitButton, validSubmitButtonClass, inputList) => {
     }
 }
 
-const setEventListeners = (form, inputList, {errorClassTemplate, activeErrorClass, validSubmitButtonClass}, submitButton) => {
+const setEventListeners = (form, inputList, {errorClassTemplate, activeErrorClass, validSubmitButtonClass, errorInputClass}, submitButton) => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
     });
     inputList.forEach((input) => {
         input.addEventListener('input', (e) => {
-            checkInputValidity(input, errorClassTemplate, activeErrorClass);
+            checkInputValidity(input, errorClassTemplate, activeErrorClass, errorInputClass);
             toggleButtonState(submitButton, validSubmitButtonClass, inputList);
         })
     });

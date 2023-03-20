@@ -1,4 +1,5 @@
 .popup__form-submit_valid{
     color: #fff;
     background-color: #000;
+    cursor: pointer;
 }
