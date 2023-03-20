@@ -7,6 +7,10 @@
   line-height: 17px;
   color: #000;
   padding: 0 0 8px;
-  margin-bottom: 31px;
+  margin: 7px 0 5px;
+}
+
+.popup__form-input:first-child{
+  margin-top: 0;
 }
 

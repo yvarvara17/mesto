@@ -50,29 +50,40 @@ const galleryCloseButton = document.querySelector('.gallery-popup__close');
 
 const closeButtons = document.querySelectorAll('.popup__close');
 
+const popups = document.querySelectorAll('.popup');
+
 function setLike(e){
   e.target.classList.toggle('element__like_checked');
 }
 function removeCard(e){
   e.target.closest('.element').remove();
 }
+function closePopupOnKeyPress(elem, evt){
+  if(evt.key === 'Escape'){
+    closePopup(elem);
+  }
+}
 function openPopup(elem){
   elem.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => closePopupOnKeyPress(elem, evt));
 }
 function closePopup(elem){
   elem.classList.remove('popup_opened');
+  document.removeEventListener('keydown', (evt) => closePopupOnKeyPress(elem, evt));
 }
 function handleFormSubmitProfile (evt) {
   evt.preventDefault();
   profileTitle.textContent = profileNameInput.value;
   profileSubtitle.textContent = profileJobInput.value;
   closePopup(profilePopup);
+  disableButton(evt.target.querySelector(validationConfig.submitButtonSelector), validationConfig.validSubmitButtonClass);
 }
 function handleFormSubmitCard (evt) {
   evt.preventDefault();
   itemListWrapper.prepend(createCard(cardNameInput.value, cardLinkInput.value));
   closePopup(cardPopup);
   cardForm.reset();
+  disableButton(evt.target.querySelector(validationConfig.submitButtonSelector), validationConfig.validSubmitButtonClass);
 }
 function insertImageData(name, link){
   galleryPopupImg.src = link;
@@ -115,3 +126,11 @@ profileEditButton.addEventListener('click', () => {
 
 cardForm.addEventListener('submit', handleFormSubmitCard);
 cardButton.addEventListener('click', () => openPopup(cardPopup));
+
+Array.from(popups).forEach(popup => {
+  popup.addEventListener('click', (evt) => {
+    if(evt.target === evt.currentTarget){
+        closePopup(evt.currentTarget)
+    }
+  });
+});
