@@ -12,4 +12,4 @@ const closePopupOnKeyPress = (evt) => {
     closePopup(openedPopup);
   }
 }
-export {openPopup, closePopup, closePopupOnKeyPress}
+export {openPopup, closePopup}

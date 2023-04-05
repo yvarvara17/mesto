@@ -1,5 +1,3 @@
-import {enableButton, disableButton} from './index.js'
-
 class FormValidator {
 
   constructor(validationConfig, formElement){
@@ -15,11 +13,21 @@ class FormValidator {
   }
 
   enableValidation(){
-    this._setEventListeners(this._form);
+    this._setEventListeners();
   }
 
   resetValidation = () => {
     this._inputList.forEach(input => this._hideInputError(input));
+  }
+
+  disableButton = () => {
+    this._submitButton.classList.remove(this._validSubmitButtonClass);
+    this._submitButton.disabled = true;
+  }
+
+  enableButton = () => {
+    this._submitButton.classList.add(this._validSubmitButtonClass);
+    this._submitButton.disabled = false;
   }
 
   _checkInputValidityAndToggleButtonState = (input) => {
@@ -27,8 +35,8 @@ class FormValidator {
     this._toggleButtonState();
   }
 
-  _setEventListeners = (form) => {
-    form.addEventListener('submit', (e) => {
+  _setEventListeners = () => {
+    this._form.addEventListener('submit', (e) => {
         e.preventDefault();
     });
     this._inputList.forEach((input) => {
@@ -37,10 +45,10 @@ class FormValidator {
   }
   _toggleButtonState = () => {
     if(this._hasInvalidInput()){
-        disableButton(this._form);
+        this.disableButton();
     }
     else{
-        enableButton(this._form);
+        this.enableButton();
     }
   }
   _checkInputValidity = (input) => {

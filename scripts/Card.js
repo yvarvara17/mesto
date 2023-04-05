@@ -6,6 +6,8 @@ class Card {
     this._name = card.name;
     this._template = document.getElementById(templateSelector);
     this._galleryPopup = document.querySelector('.gallery-popup');
+    this._galleryPopupImg = this._galleryPopup.querySelector('.gallery-popup__img');
+    this._galleryPopupTitle = this._galleryPopup.querySelector('.gallery-popup__title');
   }
 
 _getTemplate() {
@@ -45,11 +47,9 @@ createCard = () => {
   }
 
   _insertImageData(card){
-    const galleryPopupImg = this._galleryPopup.querySelector('.gallery-popup__img');
-    const galleryPopupTitle = this._galleryPopup.querySelector('.gallery-popup__title');
-    galleryPopupImg.src = card._image;
-    galleryPopupImg.alt = card._name;
-    galleryPopupTitle.textContent = card._name;
+    this._galleryPopupImg.src = card._image;
+    this._galleryPopupImg.alt = card._name;
+    this._galleryPopupTitle.textContent = card._name;
   }
 
   _setLike(e){
