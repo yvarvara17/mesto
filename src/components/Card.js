@@ -40,17 +40,6 @@ createCard = () => {
     return this._element;
   }
 
-  // _openPopupAndInsertImageData = () => {
-  //   openPopup(this._galleryPopup);
-  //   this._insertImageData(this);
-  // }
-
-  // _insertImageData(card){
-  //   this._galleryPopupImg.src = card._image;
-  //   this._galleryPopupImg.alt = card._name;
-  //   this._galleryPopupTitle.textContent = card._name;
-  // }
-
   _setLike(e){
     e.target.classList.toggle('element__like_checked');
   }
