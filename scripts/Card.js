@@ -1,13 +1,12 @@
-import {openPopup} from './utils.js'
-
 class Card {
-  constructor(card, templateSelector){
-    this._image = card.link;
-    this._name = card.name;
+  constructor({ cardItem, handleCardClick }, templateSelector){
+    this._image = cardItem.link;
+    this._name = cardItem.name;
     this._template = document.getElementById(templateSelector);
     this._galleryPopup = document.querySelector('.gallery-popup');
     this._galleryPopupImg = this._galleryPopup.querySelector('.gallery-popup__img');
     this._galleryPopupTitle = this._galleryPopup.querySelector('.gallery-popup__title');
+    this.handleCardClick = handleCardClick;
   }
 
 _getTemplate() {
@@ -26,7 +25,7 @@ _setEventListeners() {
   .addEventListener('click', (e) => this._removeCard(e));
 
   this._element.querySelector('.element__image')
-  .addEventListener('click', () => this._openPopupAndInsertImageData());
+  .addEventListener('click', () => this.handleCardClick());
   }
 
 createCard = () => {
@@ -41,16 +40,16 @@ createCard = () => {
     return this._element;
   }
 
-  _openPopupAndInsertImageData = () => {
-    openPopup(this._galleryPopup);
-    this._insertImageData(this);
-  }
+  // _openPopupAndInsertImageData = () => {
+  //   openPopup(this._galleryPopup);
+  //   this._insertImageData(this);
+  // }
 
-  _insertImageData(card){
-    this._galleryPopupImg.src = card._image;
-    this._galleryPopupImg.alt = card._name;
-    this._galleryPopupTitle.textContent = card._name;
-  }
+  // _insertImageData(card){
+  //   this._galleryPopupImg.src = card._image;
+  //   this._galleryPopupImg.alt = card._name;
+  //   this._galleryPopupTitle.textContent = card._name;
+  // }
 
   _setLike(e){
     e.target.classList.toggle('element__like_checked');
