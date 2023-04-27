@@ -6,3 +6,4 @@ const validationConfig = {
     validSubmitButtonClass: 'popup__form-submit_valid',
     errorInputClass: 'popup__form-input_invalid'
 }
+export default validationConfig;

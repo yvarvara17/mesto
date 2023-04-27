@@ -5,6 +5,8 @@ import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import validationConfig from '../components/constants/constants.js';
+import './index.css';
 
 const forms = document.forms;
 const profileForm = forms['profile-form'];
