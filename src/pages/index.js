@@ -16,7 +16,7 @@ const validationFormProfile = new FormValidator(validationConfig, 'profile-form'
 const validationFormCard = new FormValidator(validationConfig, 'card-form');
 const profileNameInput = profileForm.querySelector('.profile-name-input');
 const profileJobInput = profileForm.querySelector('.profile-job-input');
-const userInfo = new UserInfo({ name: '.profile-name-input', job: '.profile-job-input' });
+const userInfo = new UserInfo({ name: '.profile__title', job: '.profile__subtitle' });
 
 const profilePopup = new PopupWithForm({selector: '.profile-popup', handleFormSubmit: (data) => userInfo.setUserInfo(data)});
 profilePopup.setEventListeners();
@@ -28,10 +28,16 @@ popupImage.setEventListeners();
 
 const handleClickOpenPopupProfile = () => {
   const savedUserData = userInfo.getUserInfo();
-  profileNameInput.value = savedUserData.name;
-  profileJobInput.value = savedUserData.job;
+  profileNameInput.value = savedUserData.profilename;
+  profileJobInput.value = savedUserData.profilejob;
   validationFormProfile.resetValidation();
   profilePopup.open();
+}
+
+const handleClickOpenPopupCard = () => {
+  validationFormCard.resetValidation();
+  validationFormCard.disableButton();
+  cardPopup.open();
 }
 
 const createCardWithListener = (cardItem) => {
@@ -39,7 +45,6 @@ const createCardWithListener = (cardItem) => {
     popupImage.open(cardItem);
   }
 }, 'item');
-  validationFormCard.disableButton();
   return card.createCard();
 }
 
@@ -59,4 +64,4 @@ validationFormProfile.enableValidation();
 profileEditButton.addEventListener('click', handleClickOpenPopupProfile);
 
 validationFormCard.enableValidation();
-cardButton.addEventListener('click', () => cardPopup.open());
+cardButton.addEventListener('click', handleClickOpenPopupCard);

@@ -3,9 +3,6 @@ class Card {
     this._image = cardItem.link;
     this._name = cardItem.name;
     this._template = document.getElementById(templateSelector);
-    this._galleryPopup = document.querySelector('.gallery-popup');
-    this._galleryPopupImg = this._galleryPopup.querySelector('.gallery-popup__img');
-    this._galleryPopupTitle = this._galleryPopup.querySelector('.gallery-popup__title');
     this.handleCardClick = handleCardClick;
   }
 
