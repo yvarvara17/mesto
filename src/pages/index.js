@@ -167,7 +167,7 @@ cardPopup.setEventListeners();
 
 const avatarEditPopup = new PopupWithForm({
   selector: '.avatar-edit-popup', handleFormSubmit: (data) => {
-    const saveButton = document.querySelector('.avatar-edit__form-submit');
+    const saveButton = document.querySelector('.avatar-edit-submit');
     saveButton.textContent = "Сохранение...";
     api.changeAvatar(data)
       .then(res => {
