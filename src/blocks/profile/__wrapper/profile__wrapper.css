@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  position: relative;
 }
 @media (max-width: 539px) {
   .profile__wrapper {
