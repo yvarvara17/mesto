@@ -5,103 +5,9 @@ import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
-import validationConfig from '../components/constants/constants.js';
+import validationConfig from '../constants/constants.js';
 import Api from '../components/Api.js';
 import './index.css';
-
-const api = new Api();
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
-const profileAvatar = document.querySelector('.profile__avatar');
-api.getProfileInfo()
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then(res => {
-    profileTitle.textContent = res.name;
-    profileSubtitle.textContent = res.about;
-    profileAvatar.src = res.avatar;
-    profileAvatar.alt = res.name;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-const getCardsFromServer = (action, cardData) => {
-  api.getCards()
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(res => {
-      const cardsList = new Section({
-        data: res,
-        renderer: (cardItem) => {
-          const cardElement = createCardWithListener(cardItem);
-          cardsList.addItem(cardElement, false);//
-        }
-      },
-        '.elements'
-      );
-      if (action == 'render') {
-        cardsList.renderItems();
-      }
-      else if (action == 'add') {
-        cardsList.addItem(createCardWithListener(cardData), true);
-      }
-      else {
-        cardsList.removeItem(cardData);
-      }
-    })
-    .then(res => { return res })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-getCardsFromServer('render', null);
-
-const refreshLikes = (cardItem) => {
-  const card = document.getElementById(cardItem._id);
-  const cardLikeNumber = card.querySelector('.element__like-number');
-  cardLikeNumber.textContent = cardItem.likes !== [] ? cardItem.likes.length : 0;
-}
-
-const getLikesFromServer = (cardData, likeIsSet) => {
-  if (likeIsSet) {
-    api.setLike(cardData._id)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(res => {
-        refreshLikes(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  else {
-    api.deleteLike(cardData._id)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(res => {
-        refreshLikes(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-}
 
 const forms = document.forms;
 const profileForm = forms['profile-form'];
@@ -112,80 +18,132 @@ const validationFormCard = new FormValidator(validationConfig, 'card-form');
 const validationFormAvatar = new FormValidator(validationConfig, 'avatar-edit-form');
 const profileNameInput = profileForm.querySelector('.profile-name-input');
 const profileJobInput = profileForm.querySelector('.profile-job-input');
-const userInfo = new UserInfo({ name: '.profile__title', job: '.profile__subtitle' });
+const userInfo = new UserInfo({ name: '.profile__title', job: '.profile__subtitle', avatar: '.profile__avatar' });
 const avatarOverlay = document.querySelector('.profile__overlay');
-const avatar = document.querySelector('.profile__avatar');
+let cardsList = new Object();
+
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-65');
+
+const getCardsFromServer = (action, cardData, card) => {
+  Promise.all([
+    api.getProfileInfo()
+      .catch((err) => {
+        console.log(err);
+      }),
+
+    api.getCards()
+      .catch((err) => {
+        console.log(err);
+      })
+  ])
+
+    .then((values) => {
+      userInfo.setUserInfo({ profilename: values[0].name, profilejob: values[0].about, avatar: values[0].avatar, myId: values[0]._id });
+      if (action === 'render') {
+        cardsList = new Section({
+          data: values[1],
+          renderer: (cardItem) => {
+            const cardElement = createCardWithListener(cardItem);
+            cardsList.addItem(cardElement, false);
+          }
+        },
+          '.elements'
+        );
+        cardsList.renderItems();
+
+      }
+      else if (action === 'add') {
+        cardsList.addItem(createCardWithListener(cardData), true);
+      }
+      else {
+        card.removeCard();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+getCardsFromServer('render', null, null);
+
+const getLikesFromServer = (cardData, card) => {
+  card.likeIsSet = !card.likeIsSet;
+  if (card.likeIsSet) {
+    api.setLike(cardData._id)
+      .then(res => {
+        card.refreshLikes(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  else {
+    api.deleteLike(cardData._id)
+      .then(res => {
+        card.refreshLikes(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+const renderLoading = (buttonSelector, saveFlag) => {
+  const button = document.querySelector(buttonSelector);
+  button.textContent = saveFlag ? "Сохранение..." : "Сохранить";
+}
 
 const profilePopup = new PopupWithForm({
   selector: '.profile-popup', handleFormSubmit: (data) => {
-    const saveButton = document.querySelector('.profile-submit');
-    saveButton.textContent = "Сохранение...";
+    renderLoading('.profile-submit', true);
     api.setProfileInfo(data)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(res => {
-        userInfo.setUserInfo({ profilename: res.name, profilejob: res.about });
+        userInfo.setUserInfo({ profilename: res.name, profilejob: res.about, avatar: res.avatar, myId: res._id });
       })
       .then(res => {
         profilePopup.close();
-        saveButton.textContent = "Сохранить";
       })
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        renderLoading('.profile-submit', false);
+    });
   }
 });
 profilePopup.setEventListeners();
 const cardPopup = new PopupWithForm({
   selector: '.card-popup', handleFormSubmit: (data) => {
-    const saveButton = document.querySelector('.card-submit');
-    saveButton.textContent = "Сохранение...";
+    renderLoading('.card-submit', true);
     api.addCard(data)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(res => {
-        getCardsFromServer('add', res);
+        getCardsFromServer('add', res, null);
       })
       .then(res => {
         cardPopup.close();
-        saveButton.textContent = "Сохранить";
       })
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        renderLoading('.card-submit', false);
+    });
   }
 });
 cardPopup.setEventListeners();
 
 const avatarEditPopup = new PopupWithForm({
   selector: '.avatar-edit-popup', handleFormSubmit: (data) => {
-    const saveButton = document.querySelector('.avatar-edit-submit');
-    saveButton.textContent = "Сохранение...";
+    renderLoading('.avatar-edit-submit', true);
     api.changeAvatar(data)
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+        userInfo.setUserInfo({ profilename: res.name, profilejob: res.about, avatar: res.avatar, myId: res._id });
       })
-      .then(res => {
-        avatar.src = res.avatar;
-      })
-      .then(res => {
-        avatarEditPopup.close();
-        saveButton.textContent = "Сохранить";
-      })
+      .then(res => avatarEditPopup.close())
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        renderLoading('.avatar-edit-submit', false);
+    });
   }
 });
 avatarEditPopup.setEventListeners();
@@ -193,13 +151,8 @@ avatarEditPopup.setEventListeners();
 const popupWithConfirmation = new PopupWithConfirmation({
   selector: '.confirmation-popup', handleFormSubmit: (data) => {
     api.deleteCard(data)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(getCardsFromServer('remove', data))
+      .then(res => getCardsFromServer('remove', data, popupWithConfirmation.card))
+      .then(res => popupWithConfirmation.close())
       .catch((err) => {
         console.log(err);
       })
@@ -235,10 +188,11 @@ const createCardWithListener = (cardItem) => {
     cardItem, handleCardClick: () => {
       popupImage.open(cardItem);
     }, handleTrashClick: () => {
-      popupWithConfirmation.open(cardItem);
+      popupWithConfirmation.open(cardItem, card);
     }, handleLikeClick: () => {
-      getLikesFromServer(cardItem, card.likeIsSet);
-    }
+      getLikesFromServer(cardItem, card);
+    },
+    userInfo,
   }, 'item');
   return card.createCard();
 }

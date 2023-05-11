@@ -12,7 +12,7 @@ export default class Section {
   addItem(element, createdByButton) {
     createdByButton ? this._container.prepend(element) : this._container.append(element);
   }
-  removeItem(elementId){
-    document.getElementById(elementId).remove();
-  }
+  // removeItem(elementId){
+  //   document.getElementById(elementId).remove();
+  // }
 }

@@ -1,14 +1,14 @@
 class Card {
-  constructor({ cardItem, handleCardClick, handleTrashClick, handleLikeClick }, templateSelector) {
+  constructor({ cardItem, handleCardClick, handleTrashClick, handleLikeClick, userInfo }, templateSelector) {
     this._image = cardItem.link;
     this._name = cardItem.name;
     this._likes = cardItem.likes;
-    this._owner = cardItem.owner;
+    this._ownerId = cardItem.owner._id;
     this._template = document.getElementById(templateSelector);
     this.handleCardClick = handleCardClick;
     this.handleTrashClick = handleTrashClick;
     this.handleLikeClick = handleLikeClick;
-    this._myId = '600bb2f43d79aabf902936f6';
+    this._myId = userInfo.myId;
     this.id = cardItem._id;
     if (this._likes.find(i => i._id === this._myId) == undefined) {
       this.likeIsSet = false;
@@ -28,7 +28,7 @@ class Card {
 
   _setEventListeners() {
     this._element.querySelector('.element__like')
-      .addEventListener('click', (e) => this.handleLikeClick(this._setLike(e)));
+      .addEventListener('click', (e) => this.handleLikeClick(e));
 
     this._element.querySelector('.element__trash')
       .addEventListener('click', () => this.handleTrashClick(this.id));
@@ -45,7 +45,7 @@ class Card {
     const cardElementLikeNumber = this._element.querySelector('.element__like-number');
     const cardElementTrash = this._element.querySelector('.element__trash');
     const cardElementLike = this._element.querySelector('.element__like');
-    if (this._owner._id !== this._myId) {
+    if (this._ownerId !== this._myId) {
       cardElementTrash.style.display = 'none';
     }
     if (this.likeIsSet) {
@@ -61,14 +61,16 @@ class Card {
     return this._element;
   }
 
-  _setLike(e) {
-    this.likeIsSet = !this.likeIsSet;
-    e.target.classList.toggle('element__like_checked');
-    return this.likeIsSet;
+  removeCard() {
+    document.getElementById(this.id).remove();
   }
 
-  _removeCard(e) {
-    e.target.closest('.element').remove();
+  refreshLikes(cardItem){
+    const cardElement = document.getElementById(this.id);
+    const cardLikeNumber = cardElement.querySelector('.element__like-number');
+    const like = cardElement.querySelector('.element__like');
+    cardLikeNumber.textContent = cardItem.likes !== [] ? cardItem.likes.length : 0;
+    like.classList.toggle('element__like_checked');
   }
 }
 export default Card;
