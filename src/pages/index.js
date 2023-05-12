@@ -24,46 +24,34 @@ let cardsList = new Object();
 
 const api = new Api('https://mesto.nomoreparties.co/v1/cohort-65');
 
-const getCardsFromServer = (action, cardData, card) => {
-  Promise.all([
-    api.getProfileInfo()
-      .catch((err) => {
-        console.log(err);
-      }),
+Promise.all([
+  api.getProfileInfo()
+    .catch((err) => {
+      console.log(err);
+    }),
 
-    api.getCards()
-      .catch((err) => {
-        console.log(err);
-      })
-  ])
-
-    .then((values) => {
-      userInfo.setUserInfo({ profilename: values[0].name, profilejob: values[0].about, avatar: values[0].avatar, myId: values[0]._id });
-      if (action === 'render') {
-        cardsList = new Section({
-          data: values[1],
-          renderer: (cardItem) => {
-            const cardElement = createCardWithListener(cardItem);
-            cardsList.addItem(cardElement, false);
-          }
-        },
-          '.elements'
-        );
-        cardsList.renderItems();
-
-      }
-      else if (action === 'add') {
-        cardsList.addItem(createCardWithListener(cardData), true);
-      }
-      else {
-        card.removeCard();
-      }
-    })
+  api.getCards()
     .catch((err) => {
       console.log(err);
     })
-}
-getCardsFromServer('render', null, null);
+])
+
+  .then((values) => {
+    userInfo.setUserInfo({ profilename: values[0].name, profilejob: values[0].about, avatar: values[0].avatar, myId: values[0]._id });
+    cardsList = new Section({
+      data: values[1],
+      renderer: (cardItem) => {
+        const cardElement = createCardWithListener(cardItem);
+        cardsList.addItem(cardElement, false);
+      }
+    },
+      '.elements'
+    );
+    cardsList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 const getLikesFromServer = (cardData, card) => {
   card.likeIsSet = !card.likeIsSet;
@@ -106,7 +94,7 @@ const profilePopup = new PopupWithForm({
       })
       .finally(() => {
         renderLoading('.profile-submit', false);
-    });
+      });
   }
 });
 profilePopup.setEventListeners();
@@ -115,9 +103,7 @@ const cardPopup = new PopupWithForm({
     renderLoading('.card-submit', true);
     api.addCard(data)
       .then(res => {
-        getCardsFromServer('add', res, null);
-      })
-      .then(res => {
+        cardsList.addItem(createCardWithListener(res), true);
         cardPopup.close();
       })
       .catch((err) => {
@@ -125,7 +111,7 @@ const cardPopup = new PopupWithForm({
       })
       .finally(() => {
         renderLoading('.card-submit', false);
-    });
+      });
   }
 });
 cardPopup.setEventListeners();
@@ -143,16 +129,18 @@ const avatarEditPopup = new PopupWithForm({
       })
       .finally(() => {
         renderLoading('.avatar-edit-submit', false);
-    });
+      });
   }
 });
 avatarEditPopup.setEventListeners();
 
 const popupWithConfirmation = new PopupWithConfirmation({
-  selector: '.confirmation-popup', handleFormSubmit: (data) => {
-    api.deleteCard(data)
-      .then(res => getCardsFromServer('remove', data, popupWithConfirmation.card))
-      .then(res => popupWithConfirmation.close())
+  selector: '.confirmation-popup', handleFormSubmit: (cardItem, card) => {
+    api.deleteCard(cardItem._id)
+      .then(() => {
+        card.removeCard();
+        popupWithConfirmation.close();
+      })
       .catch((err) => {
         console.log(err);
       })
@@ -188,7 +176,8 @@ const createCardWithListener = (cardItem) => {
     cardItem, handleCardClick: () => {
       popupImage.open(cardItem);
     }, handleTrashClick: () => {
-      popupWithConfirmation.open(cardItem, card);
+      popupWithConfirmation.open();
+      popupWithConfirmation.setSubmitAction(cardItem, card);
     }, handleLikeClick: () => {
       getLikesFromServer(cardItem, card);
     },

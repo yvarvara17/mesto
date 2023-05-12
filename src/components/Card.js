@@ -10,12 +10,7 @@ class Card {
     this.handleLikeClick = handleLikeClick;
     this._myId = userInfo.myId;
     this.id = cardItem._id;
-    if (this._likes.find(i => i._id === this._myId) == undefined) {
-      this.likeIsSet = false;
-    }
-    else {
-      this.likeIsSet = true;
-    }
+    this.likeIsSet = this._likes.some(i => i._id === this._myId);
   }
 
   _getTemplate() {
@@ -39,10 +34,11 @@ class Card {
 
   createCard = () => {
     this._element = this._getTemplate();
-    const cardElementLi = this._element.querySelector('.element');
+    this._cardElementLi = this._element.querySelector('.element');
     const cardElementTitle = this._element.querySelector('.element__title');
     const cardElementImg = this._element.querySelector('.element__image');
-    const cardElementLikeNumber = this._element.querySelector('.element__like-number');
+    this._cardElementLikeNumber = this._element.querySelector('.element__like-number');
+    this._like = this._element.querySelector('.element__like');
     const cardElementTrash = this._element.querySelector('.element__trash');
     const cardElementLike = this._element.querySelector('.element__like');
     if (this._ownerId !== this._myId) {
@@ -54,23 +50,20 @@ class Card {
     cardElementTitle.textContent = this._name;
     cardElementImg.src = this._image;
     cardElementImg.alt = this._name;
-    cardElementLikeNumber.textContent = this._likes !== [] ? this._likes.length : 0;
-    cardElementLi.id = this.id;
+    this._cardElementLikeNumber.textContent = this._likes?.length ? this._likes.length : 0;
+    this._cardElementLi.id = this.id;
     this._setEventListeners();
 
     return this._element;
   }
 
   removeCard() {
-    document.getElementById(this.id).remove();
+    this._cardElementLi.remove();
   }
 
-  refreshLikes(cardItem){
-    const cardElement = document.getElementById(this.id);
-    const cardLikeNumber = cardElement.querySelector('.element__like-number');
-    const like = cardElement.querySelector('.element__like');
-    cardLikeNumber.textContent = cardItem.likes !== [] ? cardItem.likes.length : 0;
-    like.classList.toggle('element__like_checked');
+  refreshLikes(cardItem) {
+    this._cardElementLikeNumber.textContent = cardItem.likes?.length ? cardItem.likes.length : 0;
+    this._like.classList.toggle('element__like_checked');
   }
 }
 export default Card;
